@@ -2,7 +2,7 @@ import json
 
 import pygame
 
-from constants import IMG_MAC, IMG_SPRITES
+from constants import IMG_GUARDIAN, IMG_MAC, IMG_SPRITES
 
 
 class Level:
@@ -36,13 +36,12 @@ class Level:
         img_floor = pygame.image.load(IMG_SPRITES).convert()
         floor = pygame.transform.scale(
             img_floor.subsurface(160, 40, 20, 20), (30, 30))
-        img_start = pygame.image.load(IMG_MAC).convert()
-        start = pygame.transform.scale(img_start, (30, 30)).convert()
+        img_start = pygame.image.load(IMG_MAC).convert_alpha()
+        start = pygame.transform.scale(img_start, (30, 30))
         # start = pygame.transform.scale(
         #     img_start.subsurface(160, 20, 20, 20), (30, 30))
-        img_end = pygame.image.load(IMG_SPRITES).convert()
-        end = pygame.transform.scale(
-            img_end.subsurface(160, 20, 20, 20), (30, 30))
+        img_end = pygame.image.load(IMG_GUARDIAN).convert_alpha()
+        end = pygame.transform.scale(img_end, (30, 30))
 
         num_line = 0
         for line in self.structure:
