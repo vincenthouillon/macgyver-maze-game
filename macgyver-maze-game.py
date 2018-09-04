@@ -5,15 +5,17 @@ Game in which we must move Mac Gyver to escape a labyrinth.
 import pygame
 
 from classes import Level
-from constants import DISPLAY_SIZE, ICON_GAME
+from constants import DISPLAY_SIZE, ICON_GAME, TITLE_WINDOW
 
 pygame.init()
 
+# variables
 icon = pygame.image.load(ICON_GAME)
 screen = pygame.display.set_mode(DISPLAY_SIZE)
-
-pygame.display.set_icon(icon)
 clock = pygame.time.Clock()
+
+pygame.display.set_caption(TITLE_WINDOW)
+pygame.display.set_icon(icon)
 
 
 game_continue = True
