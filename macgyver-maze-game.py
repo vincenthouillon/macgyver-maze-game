@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+
 """ Mac Gyver Maze Game
 Game in which we must move Mac Gyver to escape a labyrinth.
 """
@@ -12,11 +15,15 @@ pygame.init()
 # variables
 icon = pygame.image.load(ICON_GAME)
 screen = pygame.display.set_mode(DISPLAY_SIZE)
+bg_color = (173, 159, 146)
 clock = pygame.time.Clock()
 
 pygame.display.set_caption(TITLE_WINDOW)
 pygame.display.set_icon(icon)
+screen.fill(bg_color)
 
+level = Level('lvl_01.json')
+level.display_maze(screen)
 
 game_continue = True
 
@@ -26,10 +33,6 @@ while game_continue:
         if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and \
                 event.key == pygame.K_ESCAPE:
             game_continue = False
-
-    level = Level('lvl_01.json')
-    level.reader_file()
-    level.display_maze(screen)
 
     pygame.display.update()
     clock.tick(30)
