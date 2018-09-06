@@ -3,7 +3,7 @@ from random import choice
 import pygame
 
 from constants import (IMG_ETHER, IMG_GUARDIAN, IMG_MAC, IMG_NEDDLE,
-                       IMG_SPRITES, IMG_TUBE)
+                       IMG_SPRITES, IMG_TUBE, SPRITE_NUMBER)
 
 
 class Maze:
@@ -12,11 +12,9 @@ class Maze:
         By default, open the original file "labyrinth-scheme.txt"
     """
 
-
-    def __init__(self, txt_file = "labyrinth_scheme.txt"):
+    def __init__(self, txt_file="labyrinth_scheme.txt"):
         self.txt_file = txt_file
         self.maze_structure = []
-        self.maze_with_objects = []
         self.__reader_file()
         self.__place_random_objects()
 
@@ -57,14 +55,12 @@ class Maze:
     def __place_random_objects(self):
         objects = ["neddle", "tube", "ether"]
         floor = self.__get_floor()
-        empty_maze = self.maze_structure
 
         for i in range(0, len(objects)):
             line_number, index = choice(floor)
-            empty_maze[line_number].pop(index)
-            empty_maze[line_number].insert(index, objects[i])
-        self.maze_with_objects = empty_maze
-        return self.maze_with_objects
+            self.maze_structure[line_number].pop(index)
+            self.maze_structure[line_number].insert(index, objects[i])
+        return self.maze_structure
 
     def display_maze(self, window):
         """ In the text file, the characters correspond to:
@@ -81,8 +77,8 @@ class Maze:
         floor = pygame.transform.scale(
             img_floor.subsurface(160, 40, 20, 20), (30, 30))
 
-        img_macgyver = pygame.image.load(IMG_MAC).convert_alpha()
-        macgyver = pygame.transform.scale(img_macgyver, (30, 30))
+        # img_macgyver = pygame.image.load(IMG_MAC).convert_alpha()
+        # macgyver = pygame.transform.scale(img_macgyver, (30, 30))
 
         img_guardian = pygame.image.load(IMG_GUARDIAN).convert_alpha()
         guardian = pygame.transform.scale(img_guardian, (30, 30))
@@ -97,7 +93,7 @@ class Maze:
         ether = pygame.transform.scale(img_ether, (30, 30))
 
         line_number = 0
-        for line in self.maze_with_objects:
+        for line in self.maze_structure:
             case_number = 0
             for sprite in line:
                 pos_x = case_number * 30
@@ -106,8 +102,8 @@ class Maze:
                     window.blit(floor, (pos_x, pos_y))
                 elif sprite == "w":
                     window.blit(wall, (pos_x, pos_y))
-                elif sprite == "s":
-                    window.blit(macgyver, (pos_x, pos_y))
+                # elif sprite == "s":
+                #     window.blit(macgyver, (pos_x, pos_y))
                 elif sprite == "e":
                     window.blit(guardian, (pos_x, pos_y))
                 elif sprite == "neddle":
@@ -120,8 +116,45 @@ class Maze:
             line_number += 1
 
 
+class MacGyver:
+    def __init__(self, labyrinth):
+        self.labyrinth = labyrinth
+        img_macgyver = pygame.image.load(IMG_MAC).convert_alpha()
+        self.img_mac = pygame.transform.scale(img_macgyver, (30, 30))
+        # Initial position
+        self.case_x = 1
+        self.case_y = 1
+        self.x = 1 * 30
+        self.y = 1 * 30
+
+    def move(self, direction):
+        # Move to right
+        if direction == "right":
+            if self.labyrinth.maze_structure[self.case_y][self.case_x+1] != "w":
+                self.case_x += 1
+                self.x = self.case_x * 30
+
+        # Move to left
+        if direction == "left":
+            if self.labyrinth.maze_structure[self.case_y][self.case_x-1] != "w":
+                self.case_x -= 1
+                self.x = self.case_x * 30
+
+        # Move to up
+        if direction == "up":
+            if self.labyrinth.maze_structure[self.case_y-1][self.case_x] != "w":
+                self.case_y -= 1
+                self.y = self.case_y * 30
+
+        # Move to down
+        if direction == "down":
+            if self.labyrinth.maze_structure[self.case_y+1][self.case_x] != "w":
+                self.case_y += 1
+                self.y = self.case_y * 30
+
+
 def main():
-    labyrinth = Maze() 
+    labyrinth = Maze()
     print("Maze 15x15 with random objects:\n===============================")
     for line in labyrinth.maze_structure:
         print(line)
