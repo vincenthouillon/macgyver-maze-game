@@ -7,7 +7,7 @@ Game in which we must move Mac Gyver to escape a labyrinth.
 
 import pygame
 
-from classes import Level
+from classes import Maze
 from constants import DISPLAY_SIZE, ICON_GAME, TITLE_WINDOW
 
 pygame.init()
@@ -22,8 +22,8 @@ pygame.display.set_caption(TITLE_WINDOW)
 pygame.display.set_icon(icon)
 screen.fill(bg_color)
 
-level = Level('lvl_01.json')
-level.display_maze(screen)
+labyrinth = Maze()
+labyrinth.display_maze(screen)
 
 game_continue = True
 

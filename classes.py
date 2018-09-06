@@ -1,4 +1,3 @@
-import json
 from random import choice
 
 import pygame
@@ -7,15 +6,17 @@ from constants import (IMG_ETHER, IMG_GUARDIAN, IMG_MAC, IMG_NEDDLE,
                        IMG_SPRITES, IMG_TUBE)
 
 
-class Level:
-    """ Docstrings
+class Maze:
+    """ Open the text file and generates the structure of the labyrinth :
+            Maze("filename.txt")
+        By default, open the original file "labyrinth-scheme.txt"
     """
-    # TODO : Ajouter la fonction "Objects" et "character"
 
-    def __init__(self, level_file):
-        self.file = level_file
-        self.structure = 0
-        self.maze = []
+
+    def __init__(self, txt_file = "labyrinth_scheme.txt"):
+        self.txt_file = txt_file
+        self.maze_structure = []
+        self.maze_with_objects = []
         self.__reader_file()
         self.__place_random_objects()
 
@@ -23,43 +24,54 @@ class Level:
         """ Method for generating the level based on the file.
         We create a general list, containing a list by line to display.
         """
-
         try:
-            with open(self.file, "r") as f:
-                self.structure = json.load(f)
-                return self.structure
+            with open(self.txt_file, "r") as f:
+
+                lines = f.readlines()[9:]
+
+                for line in lines:
+                    level_line = []
+                    # We go through the sprites (letters) contained in the file.
+                    for sprite in line.strip("\n"):
+                        # We add the sprite to the list of the line
+                        level_line.append(sprite)
+                    # Add the line to the level list
+                    self.maze_structure.append(level_line)
+                # We safeguard this structure
+                return self.maze_structure
+
         except FileNotFoundError:
-            print("File not found")
+            print("File not found or incorrect !!!")
 
     def __get_floor(self):
         line_number = 0
         floor_pos = []
 
-        for line in self.structure:
+        for line in self.maze_structure:
             line_number += 1
             for i, sprite in enumerate(line):
-                if sprite == 0:
+                if sprite == " ":
                     floor_pos.append([line_number - 1, i])
         return floor_pos
 
     def __place_random_objects(self):
         objects = ["neddle", "tube", "ether"]
         floor = self.__get_floor()
-        intial_maze = self.__reader_file()
+        empty_maze = self.maze_structure
 
         for i in range(0, len(objects)):
             line_number, index = choice(floor)
-            intial_maze[line_number].pop(index)
-            intial_maze[line_number].insert(index, objects[i])
-        self.maze = intial_maze
-        return self.maze
+            empty_maze[line_number].pop(index)
+            empty_maze[line_number].insert(index, objects[i])
+        self.maze_with_objects = empty_maze
+        return self.maze_with_objects
 
     def display_maze(self, window):
-        """ In the json file, the numbers correspond to:
-                > 0 = floor
-                > 1 = wall
-                > 2 = macgyver (start)
-                > 3 = guardian (end)
+        """ In the text file, the characters correspond to:
+                > " " = floor
+                > "w" = wall
+                > "s" = macgyver (start)
+                > "e" = guardian (end)
         """
         img_wall = pygame.image.load(IMG_SPRITES).convert()
         wall = pygame.transform.scale(
@@ -77,40 +89,42 @@ class Level:
 
         img_neddle = pygame.image.load(IMG_NEDDLE).convert_alpha()
         neddle = pygame.transform.scale(img_neddle, (30, 30))
-        
+
         img_tube = pygame.image.load(IMG_TUBE).convert_alpha()
         tube = pygame.transform.scale(img_tube, (30, 30))
-        
+
         img_ether = pygame.image.load(IMG_ETHER).convert_alpha()
         ether = pygame.transform.scale(img_ether, (30, 30))
 
-        num_line = 0
-        for line in self.maze:
-            num_case = 0
+        line_number = 0
+        for line in self.maze_with_objects:
+            case_number = 0
             for sprite in line:
-                x = num_case * 30
-                y = num_line * 30
-                if sprite == 0:
-                    window.blit(floor, (x, y))
-                elif sprite == 1:
-                    window.blit(wall, (x, y))
-                elif sprite == 2:
-                    window.blit(macgyver, (x, y))
-                elif sprite == 3:
-                    window.blit(guardian, (x, y))
+                pos_x = case_number * 30
+                pos_y = line_number * 30
+                if sprite == " ":
+                    window.blit(floor, (pos_x, pos_y))
+                elif sprite == "w":
+                    window.blit(wall, (pos_x, pos_y))
+                elif sprite == "s":
+                    window.blit(macgyver, (pos_x, pos_y))
+                elif sprite == "e":
+                    window.blit(guardian, (pos_x, pos_y))
                 elif sprite == "neddle":
-                    window.blit(neddle, (x, y))
+                    window.blit(neddle, (pos_x, pos_y))
                 elif sprite == "tube":
-                    window.blit(tube, (x, y))
+                    window.blit(tube, (pos_x, pos_y))
                 elif sprite == "ether":
-                    window.blit(ether, (x, y))
-                num_case += 1
-            num_line += 1
+                    window.blit(ether, (pos_x, pos_y))
+                case_number += 1
+            line_number += 1
 
 
 def main():
-    level = Level("lvl_01.json")
-    print(level.maze)  # for debug
+    labyrinth = Maze() 
+    print("Maze 15x15 with random objects:\n===============================")
+    for line in labyrinth.maze_structure:
+        print(line)
 
 
 if __name__ == '__main__':
