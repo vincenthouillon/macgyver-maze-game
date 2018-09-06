@@ -7,8 +7,8 @@ Game in which we must move Mac Gyver to escape a labyrinth.
 
 import pygame
 
-from classes import Maze
-from constants import DISPLAY_SIZE, ICON_GAME, TITLE_WINDOW
+from classes import Maze, MacGyver
+from constants import DISPLAY_SIZE, ICON_GAME, TITLE_WINDOW, IMG_MAC
 
 pygame.init()
 
@@ -20,22 +20,35 @@ clock = pygame.time.Clock()
 
 pygame.display.set_caption(TITLE_WINDOW)
 pygame.display.set_icon(icon)
+pygame.key.set_repeat(200, 300)
 screen.fill(bg_color)
 
 labyrinth = Maze()
-labyrinth.display_maze(screen)
+macgyver = MacGyver(labyrinth)
 
 game_continue = True
 
 while game_continue:
 
+    clock.tick(30)
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and \
                 event.key == pygame.K_ESCAPE:
             game_continue = False
 
-    pygame.display.update()
-    clock.tick(30)
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                macgyver.move("right")
+            elif event.key == pygame.K_LEFT:
+                macgyver.move("left")
+            if event.key == pygame.K_UP:
+                macgyver.move("up")
+            if event.key == pygame.K_DOWN:
+                macgyver.move("down")
 
+        labyrinth.display_maze(screen)
+        screen.blit(macgyver.img_mac, (macgyver.x, macgyver.y))
+        pygame.display.flip()
 
 pygame.quit()

@@ -8,7 +8,7 @@ legend:
 	e = exit
 
 wwwwwwwwwewwwww
-w w w   w     w
+wsw w   w     w
 w w w w w www w
 w w   w   w   w
 w wwwwwwwww www
@@ -20,5 +20,5 @@ w wwwww w     w
 w w   www wwwww
 w w w w   w   w
 w w w w www w w
-w   w       wsw
+w   w       w w
 wwwwwwwwwwwwwww
