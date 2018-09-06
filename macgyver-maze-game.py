@@ -17,6 +17,7 @@ icon = pygame.image.load(ICON_GAME)
 screen = pygame.display.set_mode(DISPLAY_SIZE)
 bg_color = (173, 159, 146)
 clock = pygame.time.Clock()
+pygame.key.set_repeat(200, 300)
 
 pygame.display.set_caption(TITLE_WINDOW)
 pygame.display.set_icon(icon)
