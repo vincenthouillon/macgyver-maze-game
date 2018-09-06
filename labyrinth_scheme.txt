@@ -1,0 +1,24 @@
+MAZE 15x15 :
+============
+
+legend:
+	w = wall
+	  = floor
+	s = start
+	e = exit
+
+wwwwwwwwwewwwww
+w w w   w     w
+w w w w w www w
+w w   w   w   w
+w wwwwwwwww www
+w   w     w w w
+w w wwwww w w w
+w w       w   w
+w wwwww wwwww w
+w wwwww w     w
+w w   www wwwww
+w w w w   w   w
+w w w w www w w
+w   w       wsw
+wwwwwwwwwwwwwww
