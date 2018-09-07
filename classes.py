@@ -178,43 +178,6 @@ class MacGyver:
                 print(f"DOWN: case_y = {self.case_y}, y = {self.y}")
 
 
-class MacGyver:
-    def __init__(self, labyrinth):
-        self.labyrinth = labyrinth
-        img_macgyver = pygame.image.load(IMG_MAC).convert_alpha()
-        self.img_mac = pygame.transform.scale(img_macgyver, (30, 30))
-        # Initial position
-        self.case_x = 1
-        self.case_y = 1
-        self.x = 1 * 30
-        self.y = 1 * 30
-
-    def move(self, direction):
-        # Move to right
-        if direction == "right":
-            if self.labyrinth.maze_structure[self.case_y][self.case_x+1] != "w":
-                self.case_x += 1
-                self.x = self.case_x * 30
-
-        # Move to left
-        if direction == "left":
-            if self.labyrinth.maze_structure[self.case_y][self.case_x-1] != "w":
-                self.case_x -= 1
-                self.x = self.case_x * 30
-
-        # Move to up
-        if direction == "up":
-            if self.labyrinth.maze_structure[self.case_y-1][self.case_x] != "w":
-                self.case_y -= 1
-                self.y = self.case_y * 30
-
-        # Move to down
-        if direction == "down":
-            if self.labyrinth.maze_structure[self.case_y+1][self.case_x] != "w":
-                self.case_y += 1
-                self.y = self.case_y * 30
-
-
 def main():
     labyrinth = Maze()
     print("Maze 15x15 with random objects:\n===============================")
