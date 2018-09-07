@@ -14,6 +14,8 @@ ICON_GAME = "img/MacGyver.png"
 IMG_SPRITES = "img/floor-tiles-20x20.png"
 IMG_MAC = "img/MacGyver.png"
 IMG_GUARDIAN = "img/Gardien.png"
+
+# Objects
 IMG_NEDDLE = "img/aiguille.png"
 IMG_TUBE = "img/tube_plastique.png"
 IMG_ETHER = "img/ether.png"
