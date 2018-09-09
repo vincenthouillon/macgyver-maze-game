@@ -16,6 +16,11 @@ IMG_MAC = "img/MacGyver.png"
 IMG_GUARDIAN = "img/Gardien.png"
 
 # Objects
+OBJECTS = ["ether", "neddle", "tube"]
 IMG_NEDDLE = "img/aiguille.png"
 IMG_TUBE = "img/tube_plastique.png"
 IMG_ETHER = "img/ether.png"
+
+# Colors
+COLOR_BG = (255, 255, 255)
+COLOR_FG = (0, 0, 0)

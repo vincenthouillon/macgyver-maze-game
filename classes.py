@@ -1,9 +1,10 @@
-from random import choice
+from random import randrange
 
 import pygame
 
 from constants import (IMG_ETHER, IMG_GUARDIAN, IMG_MAC, IMG_NEDDLE,
-                       IMG_SPRITES, IMG_TUBE, SPRITE_NUMBER, SPRITE_SIZE)
+                       IMG_SPRITES, IMG_TUBE, OBJECTS, SPRITE_NUMBER,
+                       SPRITE_SIZE)
 
 
 class Maze:
@@ -19,72 +20,58 @@ class Maze:
     def __init__(self, txt_file="labyrinth_scheme.txt"):
         self.txt_file = txt_file
         self.structure = 0
-
-        self.items = {}
         self.macgyver_pos = ()
-        self.guard_pos = ()
+
+        # Launch private mehtod
         self.__generate()
-        self.__place_random_objects()
+        self.__get_position_mac()
 
     def __generate(self):
-        """ Private method for generating the level based on the file.
-        Creating a general list, containing a list by line to display.
+        """ Private method to generate the file-based labyrinth and 
+            to randomly place objects there.
 
         """
-
+        # Read the text file and generate the labyrinth
         try:
             with open(self.txt_file, "r") as f:
                 lines = f.readlines()[9:]  # Read the file from line 10
-                level_stucture = []
+                maze_structure = []
                 for line in lines:
                     level_line = []
-                    # We go through the sprites (letters) contained in the file.
+                    # We go through the sprites (letters) contained in the file
                     for sprite in line.strip("\n"):
                         # We add the sprite to the list of the line
                         level_line.append(sprite)
                     # Add the line to the level list
-                    level_stucture.append(level_line)
-                # We safeguard this structure
-            self.structure = level_stucture
+                    maze_structure.append(level_line)
+
+        # Place the objects randomly
+                loot = 0
+                while loot < len(OBJECTS):
+                    x_object = randrange(0, SPRITE_NUMBER)
+                    y_object = randrange(0, SPRITE_NUMBER)
+
+                    if maze_structure[y_object][x_object] == " ":
+                        maze_structure[y_object][x_object] = OBJECTS[loot]
+                        loot += 1
+
+                self.structure = maze_structure
 
         except FileNotFoundError:
             print("File not found or incorrect !!!")
 
-    def __get_position(self):
-        """ Get the positions of walls, macgyver and guardian. """
-        pos_y = 0
-        floor_pos = []
-
+    def __get_position_mac(self):
+        """ Private method for get the macgyver position. """
+        line_number = 0
         for line in self.structure:
-            pos_y += 1
-            for x, sprite in enumerate(line):
+            case_number = 0
+            for sprite in line:
+                pos_x = case_number
+                pos_y = line_number
                 if sprite == "s":
-                    self.macgyver_pos = (x, pos_y - 1)
-                if sprite == "e":
-                    self.guard_pos = (
-                        x * SPRITE_SIZE, (pos_y - 1) * SPRITE_SIZE)
-                if sprite == " ":
-                    floor_pos.append([pos_y - 1, x])
-        return floor_pos
-
-    def __place_random_objects(self):
-        """ Place the objects 'needle, ether, tube' randomly. """
-
-        objects = ["neddle", "tube", "ether"]
-        floor = self.__get_position()
-
-        for i in range(0, len(objects)):
-            pos_y, pos_x = choice(floor)
-            self.structure[pos_y].pop(pos_x)
-            self.structure[pos_y].insert(pos_x, objects[i])
-            self.__get_position()
-
-            # add in dictionary 'self.items'
-            self.items[objects[i]] = (pos_x, pos_y)
-            # print(objects[i], pos_y, pos_x)  # !debug
-
-        print(self.items)
-        return self.structure
+                    self.macgyver_pos = (pos_x, pos_y)
+                case_number += 1
+            line_number += 1
 
     def display_maze(self, window):
         """ Initialize a window or screen for display in pygame.
@@ -122,12 +109,10 @@ class Maze:
             for sprite in line:
                 pos_x = case_number * SPRITE_SIZE
                 pos_y = line_number * SPRITE_SIZE
-                if sprite == " ":
+                if sprite == " " or sprite == "s":
                     window.blit(floor, (pos_x, pos_y))
                 elif sprite == "w":
                     window.blit(wall, (pos_x, pos_y))
-                elif sprite == "s":  # *starting position but displaying floor
-                    window.blit(floor, (pos_x, pos_y))
                 elif sprite == "e":
                     window.blit(guardian, (pos_x, pos_y))
                 elif sprite == "neddle":
@@ -142,9 +127,12 @@ class Maze:
 
 def main():
     labyrinth = Maze()
+
     print("Maze 15x15 with random objects:\n===============================")
     for line in labyrinth.structure:
         print(line)
+
+    print(labyrinth.macgyver_pos)
 
 
 if __name__ == '__main__':
