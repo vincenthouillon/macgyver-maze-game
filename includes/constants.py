@@ -25,5 +25,6 @@ IMG_ETHER = "includes/img/ether.png"
 COLOR_BG = (255, 255, 255)
 COLOR_FG = (0, 0, 0)
 
-# Font
+# Other files
 FONT = ("includes/font/IndieFlower.ttf")
+FILE_TEXT = ("includes/labyrinth_scheme.txt")

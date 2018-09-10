@@ -2,9 +2,9 @@ from random import randrange
 
 import pygame
 
-from includes.constants import (IMG_ETHER, IMG_GUARDIAN, IMG_MAC, IMG_NEDDLE,
-                       IMG_SPRITES, IMG_TUBE, OBJECTS, SPRITE_NUMBER,
-                       SPRITE_SIZE)
+from includes.constants import (FILE_TEXT, IMG_ETHER, IMG_GUARDIAN, IMG_MAC,
+                                IMG_NEDDLE, IMG_SPRITES, IMG_TUBE, OBJECTS,
+                                SPRITE_NUMBER, SPRITE_SIZE)
 
 
 class Maze:
@@ -16,7 +16,7 @@ class Maze:
         By default, open the original file "labyrinth-scheme.txt."
     """
 
-    def __init__(self, txt_file="includes/labyrinth_scheme.txt"):
+    def __init__(self, txt_file=FILE_TEXT):
         self.txt_file = txt_file
         self.structure = 0
         self.macgyver_pos = ()
@@ -90,10 +90,6 @@ class Maze:
 
         img_guardian = pygame.image.load(IMG_GUARDIAN).convert_alpha()
         guardian = pygame.transform.scale(img_guardian, (DIM_SPRITE))
-       
-        img_end = pygame.image.load(IMG_SPRITES).convert_alpha()
-        end = pygame.transform.scale(
-            img_end.subsurface(160, 20, 20, 20), (DIM_SPRITE))
 
         img_neddle = pygame.image.load(IMG_NEDDLE).convert_alpha()
         neddle = pygame.transform.scale(img_neddle, (DIM_SPRITE))
