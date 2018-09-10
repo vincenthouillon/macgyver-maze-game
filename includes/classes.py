@@ -2,7 +2,7 @@ from random import randrange
 
 import pygame
 
-from constants import (IMG_ETHER, IMG_GUARDIAN, IMG_MAC, IMG_NEDDLE,
+from includes.constants import (IMG_ETHER, IMG_GUARDIAN, IMG_MAC, IMG_NEDDLE,
                        IMG_SPRITES, IMG_TUBE, OBJECTS, SPRITE_NUMBER,
                        SPRITE_SIZE)
 
@@ -14,10 +14,9 @@ class Maze:
             file {path} -- Text path file
 
         By default, open the original file "labyrinth-scheme.txt."
-
     """
 
-    def __init__(self, txt_file="labyrinth_scheme.txt"):
+    def __init__(self, txt_file="includes/labyrinth_scheme.txt"):
         self.txt_file = txt_file
         self.structure = 0
         self.macgyver_pos = ()
@@ -29,12 +28,11 @@ class Maze:
     def __generate(self):
         """ Private method to generate the file-based labyrinth and 
             to randomly place objects there.
-
         """
         # Read the text file and generate the labyrinth
         try:
             with open(self.txt_file, "r") as f:
-                lines = f.readlines()[9:]  # Read the file from line 10
+                lines = f.readlines()[11:26]  # Read the file from line 10 to 24
                 maze_structure = []
                 for line in lines:
                     level_line = []
@@ -78,21 +76,24 @@ class Maze:
 
         Arguments:
             window {text} -- window = pygame.display.set_mode(x, y)
-
         """
 
         DIM_SPRITE = (SPRITE_SIZE, SPRITE_SIZE)
 
-        img_wall = pygame.image.load(IMG_SPRITES).convert_alpha()
+        img_wall = pygame.image.load(IMG_SPRITES).convert()
         wall = pygame.transform.scale(
             img_wall.subsurface(300, 0, 20, 20), (DIM_SPRITE))
 
-        img_floor = pygame.image.load(IMG_SPRITES).convert_alpha()
+        img_floor = pygame.image.load(IMG_SPRITES).convert()
         floor = pygame.transform.scale(
             img_floor.subsurface(160, 40, 20, 20), (DIM_SPRITE))
 
         img_guardian = pygame.image.load(IMG_GUARDIAN).convert_alpha()
         guardian = pygame.transform.scale(img_guardian, (DIM_SPRITE))
+       
+        img_end = pygame.image.load(IMG_SPRITES).convert_alpha()
+        end = pygame.transform.scale(
+            img_end.subsurface(160, 20, 20, 20), (DIM_SPRITE))
 
         img_neddle = pygame.image.load(IMG_NEDDLE).convert_alpha()
         neddle = pygame.transform.scale(img_neddle, (DIM_SPRITE))
@@ -113,8 +114,10 @@ class Maze:
                     window.blit(floor, (pos_x, pos_y))
                 elif sprite == "w":
                     window.blit(wall, (pos_x, pos_y))
-                elif sprite == "e":
+                elif sprite == "g":
                     window.blit(guardian, (pos_x, pos_y))
+                elif sprite == "e":
+                    window.blit(floor, (pos_x, pos_y))
                 elif sprite == "neddle":
                     window.blit(neddle, (pos_x, pos_y))
                 elif sprite == "tube":

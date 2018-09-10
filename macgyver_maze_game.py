@@ -3,17 +3,17 @@
 
 """ Game in which MacGyver must pick up objects to lull a guardian to escape 
     the maze.
-
 """
 
 from time import sleep
 
 import pygame
 
-from classes import Maze
-from constants import (COLOR_BG, COLOR_FG, DISPLAY_SIZE, ICON_GAME, IMG_MAC,
-                       OBJECTS, SPRITE_SIZE, TITLE_WINDOW)
-from macgyver import MacGyver
+from includes.classes import Maze
+from includes.constants import (COLOR_BG, COLOR_FG, DISPLAY_SIZE, FONT,
+                                ICON_GAME, IMG_MAC, OBJECTS, SPRITE_SIZE,
+                                TITLE_WINDOW)
+from includes.macgyver import MacGyver
 
 # Initialization
 pygame.init()
@@ -22,11 +22,13 @@ clock = pygame.time.Clock()
 # variables
 icon = pygame.image.load(ICON_GAME)
 screen = pygame.display.set_mode(DISPLAY_SIZE)
+loop = True
 items = []
 
 # Various settings
 pygame.display.set_caption(TITLE_WINDOW)
 pygame.display.set_icon(icon)
+screen.fill(COLOR_BG)
 pygame.key.set_repeat(200, 300)
 
 # Instantiations
@@ -37,13 +39,31 @@ img_mac = pygame.transform.scale(pygame.image.load(
     IMG_MAC).convert_alpha(), (SPRITE_SIZE, SPRITE_SIZE))
 
 # Text display settings
-item_font = pygame.font.SysFont("consolas", 18, bold=1)
-list_items = item_font.render("items:" + str(items),
+item_font = pygame.font.Font(FONT, 18)
+list_items = item_font.render(" items:" + str(items) + " ",
                               True, (COLOR_FG), (COLOR_BG))
-end_font = pygame.font.SysFont("consolas", 48, bold=1)
 
 
-loop = True
+def gameover_msg(text):
+    """ To display the end-of-game message.
+
+    Arguments:
+        text {"text"} -- The message to display
+    """
+
+    gameover_background = pygame.Surface(screen.get_size())
+    gameover_background.fill(COLOR_BG)
+    screen.blit(gameover_background, (0, 0))
+    # To display message
+    gameover_font = pygame.font.Font(FONT, 48)
+    game_over = gameover_font.render(
+        text, True, (COLOR_FG), (COLOR_BG))
+    # To center the text
+    text_rect = game_over.get_rect()
+    text_rect.centerx = screen.get_rect().centerx
+    text_rect.centery = screen.get_rect().centery
+    screen.blit(game_over, (text_rect))
+
 
 while loop:
     for event in pygame.event.get():
@@ -61,50 +81,41 @@ while loop:
             if event.key == pygame.K_DOWN:
                 macgyver.move("down")
 
-            # Collision management
-            if level.structure[macgyver.case_y][macgyver.case_x] == "e":
-                if len(items) == len(OBJECTS):
-                    win_msg = " You have won !!! "
-                    end_game = end_font.render(
-                        win_msg, True, (COLOR_FG), (COLOR_BG))
-                    screen.blit(end_game, (0, 160))
-                    pygame.display.update()
-                    sleep(3)
-                    loop = False
+    level.display_maze(screen)
+    screen.blit(img_mac, (macgyver.x, macgyver.y))
+    screen.blit(list_items, (0, 422))
+    pygame.display.flip()
 
-                else:
-                    print(f"Game Over {sorted(items)} != {sorted(OBJECTS)}")
-                    lose_msg = "   You lost !!!   "
-                    end_game = end_font.render(
-                        lose_msg, True, (COLOR_FG), (COLOR_BG))
-                    screen.blit(end_game, (0, 160))
-                    pygame.display.update()
-                    sleep(3)
-                    loop = False
+    # region: Collision management
+    if level.structure[macgyver.case_y][macgyver.case_x] == "neddle":
+        level.structure[macgyver.case_y][macgyver.case_x] = " "
+        items.append("neddle")
+        list_items = item_font.render(
+            " Items:" + str(items) + " ", True, (COLOR_FG), (COLOR_BG))
 
-            if level.structure[macgyver.case_y][macgyver.case_x] == "neddle":
-                level.structure[macgyver.case_y][macgyver.case_x] = " "
-                items.append("neddle")
-                list_items = item_font.render(
-                    f"Items:" + str(items), True, (COLOR_FG), (COLOR_BG))
+    if level.structure[macgyver.case_y][macgyver.case_x] == "ether":
+        level.structure[macgyver.case_y][macgyver.case_x] = " "
+        items.append("ether")
+        list_items = item_font.render(
+            " Items:" + str(items)+" ", True, (COLOR_FG), (COLOR_BG))
 
-            if level.structure[macgyver.case_y][macgyver.case_x] == "ether":
-                level.structure[macgyver.case_y][macgyver.case_x] = " "
-                items.append("ether")
-                list_items = item_font.render(
-                    "Items:" + str(items), True, (COLOR_FG), (COLOR_BG))
+    if level.structure[macgyver.case_y][macgyver.case_x] == "tube":
+        level.structure[macgyver.case_y][macgyver.case_x] = " "
+        items.append("tube")
+        list_items = item_font.render(
+            " Items:" + str(items) + " ", True, (COLOR_FG), (COLOR_BG))
 
-            if level.structure[macgyver.case_y][macgyver.case_x] == "tube":
-                level.structure[macgyver.case_y][macgyver.case_x] = " "
-                items.append("tube")
-                list_items = item_font.render(
-                    "Items:" + str(items), True, (COLOR_FG), (COLOR_BG))
-
-        level.display_maze(screen)
-        screen.blit(img_mac, (macgyver.x, macgyver.y))
-        screen.blit(list_items, (30, 426))
-
-        pygame.display.flip()
-        clock.tick(30)  # 30 fps
-
-pygame.quit()
+    if level.structure[macgyver.case_y][macgyver.case_x] == "e":
+        if len(items) == len(OBJECTS):
+            gameover_msg("You have won !!!")
+            pygame.display.flip()
+            sleep(2)
+            loop = False
+            pygame.quit()
+        else:
+            gameover_msg("Sorry, you lost :(")
+            pygame.display.flip()
+            sleep(2)
+            loop = False
+            pygame.quit()
+    # endregion

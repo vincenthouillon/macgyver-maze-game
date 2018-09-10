@@ -1,0 +1,27 @@
+MAZE 15x15 :
+====
+You can edit the maze here !
+
+legend:
+	w = wall
+	  = floor
+	s = start
+	e = exit
+
+---- START ----
+s  wwwwwwwwwwww
+               
+wwww  wwww  w  
+w        w  w  
+wwww  wwwwwwwww
+w        w     
+wwww  w  w  w  
+w     w     w  
+w  w  wwww  www
+w  w  w  w     
+wwwwwww  wwww  
+w  w  w        
+w  w  w  wwwwww
+w             w
+wwwwwwwwwwwwweg
+----- END -----

@@ -1,6 +1,6 @@
 import pygame
 
-from constants import IMG_MAC, SPRITE_NUMBER, SPRITE_SIZE
+from includes.constants import IMG_MAC, SPRITE_NUMBER, SPRITE_SIZE
 
 
 class MacGyver:
@@ -9,7 +9,7 @@ class MacGyver:
     def __init__(self, level):
         self.level = level
 
-        # *Initial position of MacGyver
+        # Initial position of MacGyver
         self.case_x, self.case_y = level.macgyver_pos
         self.x = self.case_x * SPRITE_SIZE
         self.y = self.case_y * SPRITE_SIZE
@@ -19,7 +19,6 @@ class MacGyver:
 
         Arguments:
             direction {text} -- 'right', 'left', 'up', 'down'
-
         """
 
         if direction == "right":
