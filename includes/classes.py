@@ -43,21 +43,22 @@ class Maze:
                         level_line.append(sprite)
                     # Add the line to the level list
                     maze_structure.append(level_line)
-
-        # Place the objects randomly
-                loot = 0
-                while loot < len(OBJECTS):
-                    x_object = randrange(0, SPRITE_NUMBER)
-                    y_object = randrange(0, SPRITE_NUMBER)
-
-                    if maze_structure[y_object][x_object] == " ":
-                        maze_structure[y_object][x_object] = OBJECTS[loot]
-                        loot += 1
-
-                self.structure = maze_structure
-
+        
         except FileNotFoundError:
             print("File not found or incorrect !!!")
+
+        # Place the objects randomly
+        loot = 0
+        while loot < len(OBJECTS):
+            x_object = randrange(0, SPRITE_NUMBER)
+            y_object = randrange(0, SPRITE_NUMBER)
+
+            if maze_structure[y_object][x_object] == " ":
+                maze_structure[y_object][x_object] = OBJECTS[loot]
+                loot += 1
+
+        self.structure = maze_structure
+
 
     def __get_position_mac(self):
         """Private method for get the macgyver position."""
