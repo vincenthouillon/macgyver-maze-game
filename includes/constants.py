@@ -1,5 +1,4 @@
-""" File content all constants for macgyver-maze-game.
-"""
+"""File content all constants for macgyver-maze-game."""
 
 # Settings display
 SPRITE_NUMBER = 15

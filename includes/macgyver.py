@@ -4,7 +4,7 @@ from includes.constants import IMG_MAC, SPRITE_NUMBER, SPRITE_SIZE
 
 
 class MacGyver:
-    """ Character management. """
+    """MacGyver movement management."""
 
     def __init__(self, level):
         self.level = level
@@ -15,12 +15,12 @@ class MacGyver:
         self.y = self.case_y * SPRITE_SIZE
 
     def move(self, direction):
-        """ Move the character if there is no wall.
+        """Move the character if there is no wall or if it does not 
+        overflow the labyrinth.
 
         Arguments:
-            direction {text} -- 'right', 'left', 'up', 'down'
+            direction {'str'} -- 'right', 'left', 'up', 'down'
         """
-
         if direction == "right":
             if self.case_x < SPRITE_NUMBER - 1:
                 if self.level.structure[self.case_y][self.case_x + 1] != "w":

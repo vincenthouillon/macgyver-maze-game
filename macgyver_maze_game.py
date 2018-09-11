@@ -1,8 +1,8 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-""" Game in which MacGyver must pick up objects to lull a guardian to escape 
-    the maze.
+"""Game in which MacGyver must pick up objects to lull a guardian to escape 
+the maze.
 """
 
 from time import sleep
@@ -45,12 +45,11 @@ list_items = item_font.render(" items:" + str(items) + " ",
 
 
 def gameover_msg(text):
-    """ To display the end-of-game message.
+    """To display the end-of-game message.
 
     Arguments:
-        text {"text"} -- The message to display
+        text {'str'} -- The message to display
     """
-
     gameover_background = pygame.Surface(screen.get_size())
     gameover_background.fill(COLOR_BG)
     screen.blit(gameover_background, (0, 0))

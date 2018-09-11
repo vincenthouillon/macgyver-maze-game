@@ -8,12 +8,12 @@ from includes.constants import (FILE_TEXT, IMG_ETHER, IMG_GUARDIAN, IMG_MAC,
 
 
 class Maze:
-    """ Open the text file and generates the structure of the labyrinth :
+    """Open the text file and generates the structure of the labyrinth:
 
-        Arguments:
-            file {path} -- Text path file
+    Arguments:
+        file {path} -- Text path file
 
-        By default, open the original file "labyrinth-scheme.txt."
+    By default, open the original file 'includes/labyrinth-scheme.txt.'
     """
 
     def __init__(self, txt_file=FILE_TEXT):
@@ -26,13 +26,14 @@ class Maze:
         self.__get_position_mac()
 
     def __generate(self):
-        """ Private method to generate the file-based labyrinth and 
-            to randomly place objects there.
+        """Private method to generate the file-based labyrinth and to 
+        randomly place objects there.
         """
         # Read the text file and generate the labyrinth
         try:
             with open(self.txt_file, "r") as f:
-                lines = f.readlines()[11:26]  # Read the file from line 10 to 24
+                # Read the file from line 10 to 24
+                lines = f.readlines()[11:26]
                 maze_structure = []
                 for line in lines:
                     level_line = []
@@ -59,7 +60,7 @@ class Maze:
             print("File not found or incorrect !!!")
 
     def __get_position_mac(self):
-        """ Private method for get the macgyver position. """
+        """Private method for get the macgyver position."""
         line_number = 0
         for line in self.structure:
             case_number = 0
@@ -72,12 +73,11 @@ class Maze:
             line_number += 1
 
     def display_maze(self, window):
-        """ Initialize a window or screen for display in pygame.
+        """Initialize a window or screen for display in pygame.
 
         Arguments:
-            window {text} -- window = pygame.display.set_mode(x, y)
+            window {object} -- window = pygame.display.set_mode(x, y)
         """
-
         DIM_SPRITE = (SPRITE_SIZE, SPRITE_SIZE)
 
         img_wall = pygame.image.load(IMG_SPRITES).convert()
@@ -122,17 +122,3 @@ class Maze:
                     window.blit(ether, (pos_x, pos_y))
                 case_number += 1
             line_number += 1
-
-
-def main():
-    labyrinth = Maze()
-
-    print("Maze 15x15 with random objects:\n===============================")
-    for line in labyrinth.structure:
-        print(line)
-
-    print(labyrinth.macgyver_pos)
-
-
-if __name__ == '__main__':
-    main()
