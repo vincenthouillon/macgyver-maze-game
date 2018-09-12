@@ -9,55 +9,65 @@
 ![Screenshot](includes/img/macgyver-maze.PNG)
 
 
-## Instructions:
+## Instructions
 
 Important: Requires Python 3 and pygame module.
 
 First clone repository, in command prompt or terminal, enter this:
 
-> git clone "https://github.com/vincenthouillon/macgyver-maze-game"
+```console
+git clone "<https://github.com/vincenthouillon/macgyver-maze-game>"
+```
 
-### For Windows:
+### For Windows
+
 Open the command prompt in the folder you just cloned and enter this:
 
-> python -m venv venv
+```console
+python -m venv venv
+python venv/Scripts/activate
+pip install -r requirements.txt
+macgyver-maze-game.py
+```
 
-> python venv/Scripts/activate
+#### Optional - Create an executable for Windows
 
-> pip install -r requirements.txt
-
-> macgyver-maze-game.py
-
-#### Optional - Create an executable for Windows:
 If you want to create an executable:
 
->pip install cx_Freeze
+```console
+pip install cx_Freeze
+```
 
 And run:
 
-> python setup.py build
+```console
+python setup.py build
+```
 
-In the 'build' folder, you had to find the executable "macgyver_maze_game.exe 
+In the 'build' folder, you had to find the executable "macgyver_maze_game.exe"
 
+### For Linux
 
-### For Linux:
 Open the terminal in the folder you just cloned and enter this:
 
-> pip3 install venv
+```console
+pip3 install venv
+```
 
 If doesn't work, type this:
 
-> sudo apt-get install python-virtualenv
-
-> source venv/bin/activate
-
-> pip3 install -r requirements.txt
-
-> python3 macgyver-maze-game.py
+```console
+sudo apt-get install python-virtualenv
+source venv/bin/activate
+pip3 install -r requirements.txt
+python3 macgyver-maze-game.py
+```
 
 For disable the virtal environnement, enter:
 
-> deactivate
+```console
+deactivate
+```
 
 ***
-*2018 - OpenClassrooms - Project 03*
+> 2018 - OpenClassrooms - Project 03
