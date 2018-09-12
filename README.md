@@ -1,22 +1,21 @@
 # macgyver-maze-game
 
-**"Help macgyver to escape"**, game developed in Python3 and Pygame
+**"Help macgyver to escape"**, game developed in Python3 and Pygame:
 
-*Game in which MacGyver is locked in a labyrinth. The exit is supervised by a guard. To distract, you need to combine the following elements: a needle, a plastic tube and ether. They will allow MacGyver to create a syringe and lull the guard to escape.*
+Game in which MacGyver is locked in a labyrinth. The exit is supervised by a guard. To distract, you need to combine the following elements: a needle, a plastic tube and ether. They will allow MacGyver to create a syringe and lull the guard to escape.
 
-*Control MacGyver with **&uparrow;** , &downarrow;, &leftarrow;, &rightarrow; and 'ESC' key to exit.*
+Control MacGyver with **&uparrow;** , &downarrow;, &leftarrow;, &rightarrow; and 'ESC' key to exit.
 
 ![Screenshot](includes/img/macgyver-maze.PNG)
 
-
 ## Instructions
 
-Important: Requires Python 3 and pygame module.
+**Important:** Requires '`Python 3`' and '`pygame`' module.
 
 First clone repository, in command prompt or terminal, enter this:
 
 ```console
-git clone "<https://github.com/vincenthouillon/macgyver-maze-game>"
+git clone "https://github.com/vincenthouillon/macgyver-maze-game"
 ```
 
 ### For Windows
@@ -44,7 +43,7 @@ And run:
 python setup.py build
 ```
 
-In the 'build' folder, you had to find the executable "macgyver_maze_game.exe"
+In the '`build`' folder, you had to find the executable '`macgyver_maze_game.exe`'.
 
 ### For Linux
 
