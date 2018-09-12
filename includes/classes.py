@@ -32,7 +32,7 @@ class Maze:
         # Read the text file and generate the labyrinth
         try:
             with open(self.txt_file, "r") as f:
-                # Read the file from line 10 to 24
+                # Read the file from line 12 to 26
                 lines = f.readlines()[11:26]
                 maze_structure = []
                 for line in lines:
