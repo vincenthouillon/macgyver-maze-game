@@ -6,7 +6,7 @@ Game in which MacGyver is locked in a labyrinth. The exit is supervised by a gua
 
 Control MacGyver with **&uparrow;** , &downarrow;, &leftarrow;, &rightarrow; and 'ESC' key to exit.
 
-![Screenshot](includes/img/macgyver-maze.PNG)
+![Screenshot](includes/img/macgyver-maze.png)
 
 ## Instructions
 

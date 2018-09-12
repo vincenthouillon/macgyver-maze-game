@@ -54,7 +54,7 @@ class Maze:
             y_object = randrange(0, SPRITE_NUMBER)
 
             if maze_structure[y_object][x_object] == " ":
-                maze_structure[y_object][x_object] = OBJECTS[loot]
+                maze_structure[y_object][x_object] =OBJECTS[loot]
                 loot += 1
 
         self.structure = maze_structure
