@@ -45,7 +45,7 @@ Le projet consiste à développer un jeu de labyrinthe en 2D avec les fonctionna
 
 **Dans `classes.py` // `class Maze`** :
 
-Utilisation de randint(random) pour définir les positions aléatoires des objets et vérification que les cases ne soient pas des murs ou un gardien :
+Utilisation de `randint(random)` pour définir les positions aléatoires des objets et vérification que les cases ne soient pas des murs ou un gardien :
 
 ```python
     loot = 0
@@ -58,7 +58,7 @@ Utilisation de randint(random) pour définir les positions aléatoires des objet
             loot += 1
 ```
 
-Vient ensuite, une méthode pour récupérer la case de départ de MacGyver dans le fichier texte `'labyrinth_scheme.txt'`, permet de configurer facilement la position de départ du labyrinthe :
+Viens ensuite, une méthode pour récupérer la case initiale de MacGyver dans le fichier texte `'labyrinth_scheme.txt'`, permet de configurer facilement la position de départ du labyrinthe :
 
 ```python
 def __get_position_mac(self):
@@ -81,7 +81,7 @@ La bonne compréhension de gestion des différents affichages, événements, etc
 
 Les échanges de données entre les méthodes, attributs et propriétés des différentes classes du programme.
 
-Le choix de l'algorythme le plus simple pour le positionnement des objets, soit à partir d'une liste des cases disponibles, soit en vérifiant les coordonnées en sortie du `randint`.
+Le choix de l'algorithme le plus simple pour le positionnement des objets, soit à partir d'une liste des cases disponibles, soit en vérifiant les coordonnées en sortie du `randint`.
 
 ## Conclusion
 
