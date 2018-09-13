@@ -60,7 +60,7 @@ Le projet consiste à développer un jeu de labyrinthe en 2D avec les fonctionna
 
 ## Aperçu du jeu
 
-<img src="macgyver-maze.png"; style="background:none; border:none; box-shadow:none;">
+<img src="macgyver-maze.PNG"; style="background:none; border:none; box-shadow:none;">
 
 ---
 
