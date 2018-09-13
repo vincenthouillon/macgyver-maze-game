@@ -47,9 +47,9 @@ Le projet consiste à développer un jeu de labyrinthe en 2D avec les fonctionna
 
 - un seul niveau, mais dont la structure doit être dans un fichier facilement modifiable;
 - le personnage doit être contrôlé par les touches directionnelles du clavier;
-- les objets doivent réparti aléatoirement dans le labyrinthe à chaque démarrage du jeu;
+- les objets doivent être réparti aléatoirement dans le labyrinthe à chaque démarrage du jeu;
 - le labyrinthe doit être un carré de 15x15 cases;
-- les objets sont récupérés en passant dessus;
+- les objets sont récupérés en passant simplement dessus;
 - le programme s'arrête quand on est face au gardien. Si on a tous les objets on gagne, sinon on perd.
 
 **Attention :** Le programme doit être 'standalone' et codé uniquement en anglais et dans le respect des bonnes pratiques de la [PEP8](https://www.python.org/dev/peps/pep-0008/).
@@ -107,13 +107,13 @@ Le projet consiste à développer un jeu de labyrinthe en 2D avec les fonctionna
 --
 
 <small>
-<p style="text-align: left;">Le sous-dossier **`'includes/font'`** _contient :_</p>
+<p style="text-align: left;">Le sous-dossier **`'includes/font'`** contient :</p>
 
 - `IndieFlower.ttf` : _police utilisée dans je jeu pour la liste des objets et les messages de fin du jeu_
 
 - `OFF.txt` : _licence de la police d'écriture_
 
-<p style="text-align: left;">Le sous-dossier **`'includes/img'`** _contient les images utilisées du jeu  :_</p>
+<p style="text-align: left;">Le sous-dossier **`'includes/img'`** contient les images utilisées du jeu  :</p>
 
 - `aiguille.png`
 - `ether.png`
@@ -179,7 +179,7 @@ wwwwwwwwwwwwweg
 ## classes.py
 
 <small>
-Le fichier `'Classes.py'` contient une classe 'Maze()' avec une méthode `'__generate(self)'`
+Le fichier `'Classes.py'` contient une classe `'Maze()'` avec une méthode `'__generate(self)'`
 pour lire le fichier `'labyrinth_scheme.txt'` et générer le labyrinthe pour le programme principal `'macgyver_maze_game.py'`:
 </small>
 
@@ -213,7 +213,7 @@ class Maze():
 --
 
 <small>
-Toujours dans la méthode `'__generate(self)'` nous y placons également les objets de façon aléatoire dans le labyrinthe en vérifiant que les cases soient disponibles _(floor)_ :
+Toujours dans la méthode `'__generate(self)'` les objets sont placés de façon aléatoire dans le labyrinthe en vérifiant que les cases sont bien des sols _(floor)_ :
 </small>
 
 ```python
@@ -239,7 +239,7 @@ class Maze():
 --
 
 <small>
-Ensuite, nous retrouvons toujours dans la classe `'Maze()'` une méthode qui récupère dans le fichier `'labyrinth_scheme.txt'` la position initiale de MacGyver :
+Ensuite, nous trouvons toujours dans la classe `'Maze()'` une méthode qui récupère dans le fichier `'labyrinth_scheme.txt'` la position initiale de MacGyver :
 </small>
 
 ```python
@@ -265,7 +265,7 @@ class Maze():
 --
 
 <small>
-Et pour finir avec la classe `'Maze()'`, nous retrouvons une méthode `'display_maze(self, window)`' qui retourne l'affichage du labyrinthe pour pygame dans le programme principal.
+Et pour en finir avec la classe `'Maze()'`, nous trouvons une méthode `'display_maze(self, window)`' qui retourne l'affichage du labyrinthe pour pygame dans le programme principal.
 </small>
 
 ```python
@@ -332,7 +332,7 @@ class Maze():
 ## macgyver.py
 
 <small>
-Le fichier `'macgyver.py'` contient une classe `'MacGyver()'` qui gére les déplacement du personnage. Il récupère la position de départ dans le la classe `'Maze()'` et contrôle si les déplacements sont possibles en vérifiant les cases voisines _(murs et si toujours dans le labyrinthe)_ à Mac Gyver.
+Le fichier `'macgyver.py'` contient une classe `'MacGyver()'` avec une méthode `'move(self, direction)'` pour gérer les déplacement du personnage. Il récupère la position de départ dans la classe `'Maze()'` et contrôle si les déplacements sont possibles en vérifiant les cases voisines _(murs et si toujours dans le labyrinthe)_ à Mac Gyver.
 </small>
 
 ```python
@@ -426,7 +426,7 @@ FILE_TEXT = ("includes/labyrinth_scheme.txt")
 ## macgyver_maze_game.py
 
 <small>
-C'est le programme principal, celui que l'on doit exécuter pour lancer le jeu. Il gère les touches du clavier, les événements quand le personnage est sur une case particulière, l'affichage du jeu en général et les messages de fin de partie.
+C'est le programme principal, celui que l'on doit exécuter pour lancer le jeu. Il gère les touches du clavier, les événements _(quand le personnage est sur un objet ou la case devant le gardien)_, l'affichage du jeu et les messages de fin de partie.
 </small>
 
 ```python
