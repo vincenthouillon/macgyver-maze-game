@@ -59,7 +59,7 @@ If doesn't work, type this:
 sudo apt-get install python-virtualenv
 ```
 
-Then
+Then:
 
 ```console
 source venv/bin/activate
