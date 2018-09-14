@@ -57,6 +57,11 @@ If doesn't work, type this:
 
 ```console
 sudo apt-get install python-virtualenv
+```
+
+Then:
+
+```console
 source venv/bin/activate
 pip3 install -r requirements.txt
 python3 macgyver-maze-game.py
