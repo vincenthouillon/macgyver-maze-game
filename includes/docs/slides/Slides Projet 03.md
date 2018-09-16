@@ -1,6 +1,6 @@
 ---
 [comment]: <> Black, White, League, Sky, Beige, Simple, Serif, Blood, Night, Moon, Solarized
-theme: "Black"
+theme: "League"
 highlightTheme: "Atom-One-Dark"
 ---
 
@@ -120,7 +120,8 @@ Le projet consiste à développer un jeu de labyrinthe en 2D avec les fonctionna
 - `floor-tiles-20x20.png` _(sprite contenant les murs et le sol du jeu)_
 - `Gardien.png`
 - `MacGyver.png`
-- `tube_plastique.png``etc.`
+- `tube_plastique.png`
+- `etc.`
 
 <small>(NB: Les images ont étés fournies avec le cahier des charges)</small>
 </small>
